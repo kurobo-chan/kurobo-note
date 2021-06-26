@@ -7,12 +7,13 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-export default function Home() {
+export default function Home({location}) {
   return (
     <Layout>
       <SEO
         pagetitle="プライバシーポリシーについて "
         pagedesc="プライバシーポリシーについてのページです"
+        pagepath={location.pathname}
       />
       <div className="partsGrid">
         <div className="grid12">
