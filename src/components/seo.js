@@ -26,7 +26,7 @@ export default function Home(props) {
     : data.site.siteMetadata.siteUrl
   const imgurl = props.pageimg
     ? `${data.site.siteMetadata.siteUrl}${props.pageimg}`
-    : `${data.site.siteMetadata.siteUrl}/thumb.svg`
+    : props.blogimg || `${data.site.siteMetadata.siteUrl}/thumb.svg`
   const imgw = props.pageimgw || 1280
   const imgh = props.pageimgh || 640
   return (

@@ -37,5 +37,23 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
+    {
+      resolve: "gatsby-source-microcms",
+      options: {
+        apiKey: process.env.microCMS_API_KEY,
+        serviceId: "kurobo-note",
+        apis: [
+          {
+            endpoint: "blog",
+          },
+          {
+            endpoint: "category",
+          },
+          {
+            endpoint: "tag",
+          },
+        ],
+      },
+    },
   ],
 }
