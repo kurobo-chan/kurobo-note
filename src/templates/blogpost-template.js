@@ -4,7 +4,8 @@ import {
   faFolderOpen,
   faCheck,
   faChevronLeft,
-  faChevronRight,
+	faChevronRight,
+  faTag
 } from "@fortawesome/free-solid-svg-icons"
 import { Link, graphql } from "gatsby"
 import { Facebook, Twitter } from "react-sharingbuttons"
@@ -71,7 +72,7 @@ export default function Home({ data, location, pageContext }) {
                   src={data.microcmsBlog.eyecatch.url}
                   imgixParams={{ ar: "16:9", fit: "fill" }}
                   htmlAttributes={{
-                    alt: `${data.microcmsBlog.preface.slice(0, 20)}...`,
+                    alt: `${data.microcmsBlog.preface.slice(0, 30)}...`,
                   }}
                 />
               </figure>
@@ -103,7 +104,7 @@ export default function Home({ data, location, pageContext }) {
                 {data.microcmsBlog.tag.map(cat => (
                   <li className={cat.tagSlug} key={cat.id}>
                     <a href="#">
-                      <i className="fas fa-tag" />
+                      <FontAwesomeIcon icon={faTag} />
                       <span>{cat.tag}</span>
                     </a>
                   </li>

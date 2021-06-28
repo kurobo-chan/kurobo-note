@@ -317,14 +317,9 @@ html.open,
   margin-bottom: 0;
 }
 
-.profile .twitter {
-  grid-column: 1;
+.profile .contact {
+  grid-column: 1/-1;
   margin-top: 0.5em;
-}
-
-.profile .fa-twitter {
-  color: var(--twitter);
-  font-size: var(--f2);
 }
 
 .aside h2 {
@@ -343,7 +338,9 @@ html.open,
   font-size: var(--f5);
   line-height: 1.5;
 }
-
+.cardBody h3 a{
+	text-decoration: none;
+}
 .cardBody .detailBody {
   grid-column: 1 / span 3;
   grid-row: 2;
@@ -486,56 +483,36 @@ html.open,
   color: var(--secondary-light);
   font-size: 2em;
 }
-
 .blog h1 {
   grid-column: 1/-1;
 }
-
-.blog .grid12 {
-  row-gap: 8vw;
+.blog .grid12{
+	row-gap: 8vw;
 }
-
-.blog article {
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: inherit;
-  -moz-column-gap: inherit;
-       column-gap: inherit;
+.blog article{
+grid-column: 1/-1;
 }
-
+.blog article a{
+	text-decoration: none;
+}
 .blog .eyecatch {
   grid-column: 1 / span 2;
-  grid-row: span 2;
 }
-
+.blog .text{
+	grid-column: 3/ span 2;
+}
 .blog h2 {
-  grid-column: 3 / span 2;
-  grid-row: 1;
   margin: 0;
-  font-size: var(--f5);
-}
-
-.blog .detailBody {
-  grid-column: 3 / span 2;
-  grid-row: 2;
+  font-size: var(--f3);
 }
 
 .blog .grid12 article:first-of-type * {
   grid-column: 1/-1;
 }
 
-.blog .grid12 article:first-of-type .eyecatch {
-  grid-row: 1;
-}
-
 .blog .grid12 article:first-of-type h2 {
-  grid-row: 2;
   margin: 0.5em 0;
   font-size: var(--f2);
-}
-
-.blog .grid12 article:first-of-type .detailBody {
-  grid-row: 3;
 }
 
 .privacypolicy {
@@ -576,8 +553,8 @@ html.open,
   .profile .msg {
     grid-column: 4/ -4;
   }
-  .profile .twitter {
-    grid-column: 4;
+  .profile .contact {
+    grid-column: 4/-4;
   }
   .aside h2 {
     grid-column: 4/-4;
@@ -618,30 +595,26 @@ html.open,
   .pagination {
     grid-column: 4/-4;
   }
-  .blog h1 {
-    grid-column: 4/-4;
-  }
   .blog .grid12 {
     row-gap: 30px;
   }
+  .blog h1{
+	grid-column: 4/-4;
+  }
   .blog article {
     grid-column: 4 / span 3;
+  }
+  .blog .text{
+	grid-column: 1/-1;
   }
   .blog article:nth-of-type(odd) {
     grid-column: 7 / span 3;
   }
   .blog .eyecatch {
     grid-column: 1/-1;
-    grid-row: 1;
   }
   .blog h2 {
-    grid-column: 1/-1;
-    grid-row: 2;
-    margin: 0.5em 0;
-  }
-  .blog .detailBody {
-    grid-column: 1/-1;
-    grid-row: 3;
+    margin:0;
   }
   .blog .grid12 article:first-of-type {
     grid-column: 4/-4;

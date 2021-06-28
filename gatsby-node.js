@@ -4,7 +4,29 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
   const blogresult = await graphql(`
     query {
+      allMicrocmsTag {
+        nodes {
+          tag
+          tagSlug
+          tagId
+        }
+      }
+      allMicrocmsCategory {
+        nodes {
+          category
+          categorySlug
+          categoryId
+        }
+      }
       allMicrocmsBlog(sort: { order: DESC, fields: publishDate }) {
+        group(field: category___categorySlug) {
+          totalCount
+          fieldValue
+        }
+        groupTag: group(field: tag___tagSlug) {
+          totalCount
+          fieldValue
+        }
         edges {
           node {
             id
@@ -35,6 +57,78 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         next,
         previous,
       },
+    })
+  })
+  const blogPostsPerPage = 6
+  const blogPosts = blogresult.data.allMicrocmsBlog.edges.length
+  const blogPages = Math.ceil(blogPosts / blogPostsPerPage)
+  Array.from({ length: blogPages }).forEach((_, i) => {
+    createPage({
+      path: i === 0 ? `/blog/` : `/blog/${i + 1}/`,
+      component: path.resolve("./src/templates/blog-template.js"),
+      context: {
+        skip: blogPostsPerPage * i,
+        limit: blogPostsPerPage,
+        currentPage: i + 1,
+        isFirst: i + 1 === 1,
+        isLast: i + 1 === blogPages,
+      },
+    })
+  })
+  blogresult.data.allMicrocmsBlog.group.forEach(node => {
+    const catPostsPerPage = 5 // １ページに表示する記事の数
+    const catPosts = node.totalCount // カテゴリーに属した記事の総数
+    const catPages = Math.ceil(catPosts / catPostsPerPage) // カテゴリーページの総数
+    Array.from({ length: catPages }).forEach((_, i) => {
+      createPage({
+        path:
+          i === 0
+            ? `/cat/${node.fieldValue}/`
+            : `/cat/${node.fieldValue}/${i + 1}/`,
+        component: path.resolve(`./src/templates/cat-template.js`),
+        context: {
+          catid: blogresult.data.allMicrocmsCategory.nodes.find(
+            n => n.categorySlug === node.fieldValue
+          ).categoryId,
+          catname: blogresult.data.allMicrocmsCategory.nodes.find(
+            n => n.categorySlug === node.fieldValue
+          ).category,
+          catslug: node.fieldValue,
+          skip: catPostsPerPage * i,
+          limit: catPostsPerPage,
+          currentPage: i + 1, // 現在のページ番号
+          isFirst: i + 1 === 1, // 最初のページ
+          isLast: i + 1 === catPages, // 最後のページ
+        },
+      })
+    })
+  })
+	blogresult.data.allMicrocmsBlog.groupTag.forEach(node => {
+    const tagPostsPerPage = 5 // １ページに表示する記事の数
+    const tagPosts = node.totalCount // カテゴリーに属した記事の総数
+    const tagPages = Math.ceil(tagPosts / tagPostsPerPage) // カテゴリーページの総数
+    Array.from({ length: tagPages }).forEach((_, i) => {
+      createPage({
+        path:
+          i === 0
+            ? `/tag/${node.fieldValue}/`
+            : `/tag/${node.fieldValue}/${i + 1}/`,
+        component: path.resolve(`./src/templates/tag-template.js`),
+        context: {
+          tagid: blogresult.data.allMicrocmsTag.nodes.find(
+            n => n.tagSlug === node.fieldValue
+          ).tagId,
+          tagname: blogresult.data.allMicrocmsTag.nodes.find(
+            n => n.tagSlug === node.fieldValue
+          ).tag,
+          tagslug: node.fieldValue,
+          skip: tagPostsPerPage * i,
+          limit: tagPostsPerPage,
+          currentPage: i + 1, // 現在のページ番号
+          isFirst: i + 1 === 1, // 最初のページ
+          isLast: i + 1 === tagPages, // 最後のページ
+        },
+      })
     })
   })
 }
