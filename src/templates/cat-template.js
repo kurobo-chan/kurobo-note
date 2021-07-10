@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useCallback } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faFolderOpen,
@@ -108,6 +108,9 @@ export const query = graphql`
       limit: $limit
       filter: { category: { elemMatch: { id: { eq: $catid } } } }
     ) {
+      nodes {
+        id
+      }
       edges {
         node {
           title

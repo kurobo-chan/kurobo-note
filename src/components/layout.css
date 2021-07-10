@@ -441,6 +441,12 @@ html.open,
 	display: grid;
 	grid-row: 2;
 }
+.postbody ul li{
+	text-indent: 1em;
+}
+.postbody ul li::before{
+	content: "・";
+}
 .blackCode{
 	background: #23241f;
 	color: #f8f8f2;

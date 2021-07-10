@@ -4,8 +4,8 @@ import {
   faFolderOpen,
   faCheck,
   faChevronLeft,
-	faChevronRight,
-  faTag
+  faChevronRight,
+  faTag,
 } from "@fortawesome/free-solid-svg-icons"
 import { Link, graphql } from "gatsby"
 import { Facebook, Twitter } from "react-sharingbuttons"
